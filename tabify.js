@@ -14,8 +14,8 @@
             this.tabContent.style.width = '100%';
             this.tabContent.style.height = '100%';
             this.tabContent.style.position = 'absolute';
-            //this.tabContent.style.display = 'none';
-            $(this.tabContent).attr('data-tab-id', TabBar.currentTabId);
+
+
             $(this.tabContent).load(contentURL);
 
             this.tabBar.tabContentAreas[this.id] = $(this.tabContent);
@@ -149,11 +149,14 @@
         }
 
         var tabBar = new TabBar();
-        
-        tabBar.addTab('Did it work?', 'tab_one.html');
-        tabBar.addTab('How about now?', 'tab_two.html');
         tabBar.draw(this);
-        
+
+        var methods = {
+            addTab: function(caption, contentURL) {
+                tabBar.addTab(caption, contentURL);    
+            }
+        };
+        return methods;
     };
 }(jQuery));
 
