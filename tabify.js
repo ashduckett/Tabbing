@@ -95,6 +95,7 @@
             this.entireTabArea = document.createElement('div');
             this.entireTabArea.style.width = '100%';
             this.entireTabArea.style.height = '100%';
+            this.entireTabArea.style.position = 'relative';
 
             // A place for the clickable tabs
             this.tabArea = document.createElement('div');
@@ -106,6 +107,9 @@
             this.contentArea = document.createElement('div');
             this.contentArea.style.width = '100%';
             this.contentArea.style.height = 'calc(100% - 40px)';
+            this.contentArea.style.position = 'absolute';
+            this.contentArea.style.top = '40px';
+            //this.contentArea.style.height = 'calc(100% - 40px)';
             this.contentArea.style.backgroundColor = 'yellow';
 
             $(this.entireTabArea).append($(this.tabArea));

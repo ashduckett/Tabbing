@@ -14,12 +14,21 @@
                 height: 100%;
             }
 
+            .test-div {
+                background-color: orange;
+                height: 500px;
+                width: 600px;
+                margin: auto;
+            }
+
         </style>
 
     </head>
     <body>
         <div class="tabbed-container"></div>
+    <div class="test-div"></div>
 
+    </body>
 
             
     <script>
@@ -27,8 +36,14 @@
         methods.addTab('It worked', 'tab_one.html');
         methods.addTab('How about two?', 'tab_two.html');
 
-    </script>        
-    </body>
+        var methods2 = $('.test-div').tabify();
+        methods2.addTab('TESTER', 'tab_one.html');
+        methods2.addTab('Another', 'tab_two.html');
+        //methods.addTab('How about two?', 'tab_two.html');
+
+    </script>
+
+
 
 
 
