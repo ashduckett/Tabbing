@@ -7,6 +7,7 @@
             this.id = TabBar.currentTabId;
             this.domElement = null;
             this.createDomElement(caption, contentURL);
+            this.caption = caption;
 
             // Create the div for the tab's associated content.
             this.tabContent = document.createElement('div');
@@ -42,20 +43,23 @@
             var text = document.createElement('div');
             text.style.display = 'inline-block';
             text.innerHTML = caption;
-            
-            // Three lines to vertically align. It worked!
             text.style.position = 'relative';
+            text.classList.add('disable-select');
+            text.style.cursor = 'default';
+
+            // Three lines to vertically align. It worked!
             text.style.top = '50%';
             text.style.transform = 'translateY(-50%)';
             text.style.marginLeft = '8px';
 
             // We also need an element for the close button.
             var close = document.createElement('span');
-            close.innerHTML = 'x';
+            close.innerHTML = '<i class="fa fa-times" aria-hidden="true"></i>';
             close.style.float = 'right';
             close.style.marginLeft = '15px';
             close.style.marginTop = '5px';
             close.style.marginRight = '8px';
+            close.style.cursor = 'pointer';
 
             // Add the text to the tab
             $(tab).append($(text));
@@ -73,6 +77,10 @@
                 // Show the tab with the id that matches this tab
                 $(context.tabBar.tabContentAreas[context.id]).show();
 
+                context.tabBar.tabObjects.forEach(function(element) {
+                    console.log('My caption is ' + element.caption);
+                });
+
             });
 
             $(close).click(function(event) {
@@ -89,8 +97,9 @@
         };
 
         var TabBar = function() {
-            this.tabs = [];
+//            this.tabs = [];
             this.tabContentAreas = [];
+            this.tabObjects = [];
 
             this.entireTabArea = document.createElement('div');
             this.entireTabArea.style.width = '100%';
@@ -129,10 +138,9 @@
 
             // Create a new tab object            
             var tab = new Tab(caption, contentURL, this);
+            this.tabObjects[tab.id] = tab;
+            
             $(this.tabArea).append(tab.getTabElement());
-
-            // Index the tab DOM element so we can later hide it or find its content.
-            this.tabs[tab.id] = tab.getTabElement();
 
             // Add the tab content to the content area
             $(this.contentArea).append($(tab.getTabContent()));
@@ -141,15 +149,14 @@
             this.hideAllTabContent();            
 
             // Show the content we're interested in
-            this.tabs[tab.id] = $(tab.getTabContent()).show();
-            
+            $(tab.getTabContent()).show();
+
             // Increment to next id
             TabBar.currentTabId++;
         }
 
         TabBar.prototype.draw = function(element) {
             $(element).append(this.entireTabArea);
-            
         }
 
         var tabBar = new TabBar();
