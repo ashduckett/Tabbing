@@ -33,11 +33,12 @@
            
             tab.classList.add('tab');
             tab.style.backgroundColor = 'black';
-            tab.style.display = 'inline-block';
+           // tab.style.display = 'inline-block';
             tab.style.color = 'white';
             tab.style.height = '100%';
             tab.style.borderRadius = '11px 11px 0 0';
-            tab.style.marginLeft = '1px';
+          //  tab.style.marginLeft = '1px';
+
 
             // An element for the text. This should be vertially centered in the div.
             var text = document.createElement('div');
@@ -51,6 +52,8 @@
             text.style.top = '50%';
             text.style.transform = 'translateY(-50%)';
             text.style.marginLeft = '8px';
+            text.style.pointerEvents = 'none';
+           
 
             // We also need an element for the close button.
             var close = document.createElement('span');
@@ -106,11 +109,14 @@
             this.entireTabArea.style.height = '100%';
             this.entireTabArea.style.position = 'relative';
 
+
             // A place for the clickable tabs
             this.tabArea = document.createElement('div');
             this.tabArea.style.width = '100%';
             this.tabArea.style.height = '40px';
             this.tabArea.style.backgroundColor = 'red';
+            this.tabArea.classList.add('column-container');
+            this.methods = $(this.tabArea).DraggableCol();
 
             // A place for each tab to display its content
             this.contentArea = document.createElement('div');
@@ -139,8 +145,8 @@
             // Create a new tab object            
             var tab = new Tab(caption, contentURL, this);
             this.tabObjects[tab.id] = tab;
-            
-            $(this.tabArea).append(tab.getTabElement());
+
+            this.methods.addColumn(tab.getTabElement());
 
             // Add the tab content to the content area
             $(this.contentArea).append($(tab.getTabContent()));
